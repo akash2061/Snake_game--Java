@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.*;
 
-public class SnakeGame extends JPanel {
+public class SnakeGame extends JPanel implements ActionListener {
     private class Tile {
         int x;
         int y;
@@ -23,6 +23,8 @@ public class SnakeGame extends JPanel {
     Tile food;
     Random r;
 
+    Timer gameLoop;
+
     SnakeGame(int bW, int bH) {
         this.bW = bW;
         this.bH = bH;
@@ -33,6 +35,9 @@ public class SnakeGame extends JPanel {
         food = new Tile(10, 10);
         r = new Random();
         placeFood();
+
+        gameLoop = new Timer(100, this);
+        gameLoop.start();
     }
 
     public void paintComponent(Graphics g) {
@@ -54,5 +59,10 @@ public class SnakeGame extends JPanel {
     public void placeFood() {
         food.x = r.nextInt(bW / tS);
         food.y = r.nextInt(bH / tS);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent arg0) {
+        repaint();
     }
 }
